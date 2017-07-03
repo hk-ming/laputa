@@ -16,12 +16,22 @@ class Password
 {
     /**
      * 密码加密
+     * @param string $password
      * @return string 密文60位
      */
-    public function crypt($password)
+    public function crypt(string $password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function
+    /**
+     * 验证密码
+     * @param string $password 用户输入的密码
+     * @param string $hash 正确密码的密文
+     * @return bool 正确返回true，否则返回false
+     */
+    public function verify(string $password, string $hash)
+    {
+        return password_verify($password, $hash);
+    }
 }
