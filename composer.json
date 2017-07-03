@@ -1,0 +1,17 @@
+{
+  "name": "hyperqing/laputa",
+  "description": "A basic",
+  "minimum-stability": "alpha",
+  "license": "Apache 2.0",
+  "authors": [
+    {
+      "name": "HyperQing",
+      "email": "469379004@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "hyperqing\\": "src/"
+    }
+  }
+}
