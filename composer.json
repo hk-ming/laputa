@@ -1,6 +1,6 @@
 {
   "name": "hyperqing/laputa",
-  "description": "A web application basic libary.",
+  "description": "A PHP web application basic libary.",
   "minimum-stability": "alpha",
   "license": "Apache 2.0",
   "authors": [

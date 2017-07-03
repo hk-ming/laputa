@@ -2,9 +2,9 @@
 
 by HyperQing 20170703
 
->网络应用基础库
+>PHP 网络应用基础库
 
->A web application basic libary.
+>A PHP web application basic libary.
 
 [TOC]
 
