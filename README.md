@@ -8,7 +8,9 @@ by HyperQing 20170703
 
 [TOC]
 
-## 
+## 环境要求
+
+PHP7 or latest
 
 ## 安装方法
 (暂未发布到composer仓库，使用git代替)
