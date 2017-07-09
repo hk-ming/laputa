@@ -50,7 +50,7 @@ use \hyperqing\Base;
 >于是通过分析TP的响应行为，封装了以下响应方法。如果你使用了标志位进行数据统计或写入日志等后置的操作，可以放心，该方法会继续执行原
 生命周期中应有的方法。
 
->(仅能在ThinkPHP5.x中使用)
+>(仅能在ThinkPHP5.x中使用，否则将抛出一个异常)
 
 使用项目规范的返回格式对数据进行封装
 
@@ -62,6 +62,8 @@ Base::response('添加成功',1,[
     'token'=>'df3h4ze53rh843zd4h',
     'name'=>'username'
     ]);
+```
+```php
 Base::response('添加失败',0);
 ```
 最终输出示例
@@ -73,6 +75,12 @@ Base::response('添加失败',0);
  "token":"df3h4ze53rh843zd4h",
  "name":"username"
     }
+}
+```
+```
+{
+"info":"添加失败",
+"status":0
 }
 ```
 
