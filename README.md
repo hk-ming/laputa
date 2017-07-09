@@ -116,3 +116,7 @@ var_dump(Password::verify('123456', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSp
 var_dump(Password::verify('123', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u'));
 // =>bool(false)
 ```
+
+## Lincense
+
+本项目遵循Apache2开源协议发布，并提供免费使用。
