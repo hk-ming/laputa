@@ -13,5 +13,8 @@
     "psr-4": {
       "hyperqing\\": "src/"
     }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.3"
   }
 }

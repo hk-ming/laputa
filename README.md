@@ -117,6 +117,40 @@ var_dump(Password::verify('123', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFh
 // =>bool(false)
 ```
 
+## OAuth
+
+提供 OAuth 2.0 第三方登录功能。
+使用本库进行OAuth操作非常简单，只需关注几个必要的位置即可完成。
+
+**已自带API的厂商列表**
+- Coding.net
+
+**要添加未在列表中的其他厂商也非常简单**
+
+### 命名空间
+```
+use hyperqing\oauth\厂商名;
+```
+
+### Coding.net
+
+**快速开始**
+```php
+use hyperqing\oauth\Coding;
+// 实例化OAuth对象
+$coding = new Coding('应用id', '应用密钥');
+// 注册用户自定义的保存方法
+$coding->onSaveAccessToken(function ($json) {
+});
+// 注册读取方法
+$coding->onLoadAccessToken(function (): array {
+    return [];
+});
+$data = $coding->getAccessToken()->getCurrentUser();
+```
+
+
+
 ## Lincense
 
 本项目遵循Apache2开源协议发布，并提供免费使用。
