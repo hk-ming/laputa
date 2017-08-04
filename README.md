@@ -13,8 +13,8 @@ by HyperQing 20170703
 PHP7 or latest
 
 ## 安装方法
-(暂未发布到composer仓库，使用git代替)
-1. `composer.json`添加本仓库
+
+1. `composer.json`添加本仓库(暂未发布到composer仓库，使用git代替，未来会取消这一步)
 ```
 "repositories": [
     {
@@ -99,18 +99,14 @@ Base::$dic[35]; // =>Z
 加密后的密文固定长度60位。
 例：`$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u`
 
-### 命名空间
+### 用法
 ```
 use hyperqing\Password;
-```
 
-### 密码加密
-```
+// 密码加密
 echo Password::crypt('123456'); // =》 密文$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u
-```
 
-### 密码验证
-```
+// 密码验证
 var_dump(Password::verify('123456', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u'));
 // =>bool(true)
 var_dump(Password::verify('123', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u'));
@@ -119,35 +115,74 @@ var_dump(Password::verify('123', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFh
 
 ## OAuth
 
-提供 OAuth 2.0 第三方登录功能。
+提供 OAuth 2.0 第三方登录功能，不依赖MVC框架，可以在ThinkPHP5、Laravel等框架中快速使用。
 使用本库进行OAuth操作非常简单，只需关注几个必要的位置即可完成。
 
-**已自带API的厂商列表**
-- Coding.net
+本库封装了主流服务商获取access_token和调用厂商API的功能。不仅如此，要添加其他厂商也是非常简单的。
 
-**要添加未在列表中的其他厂商也非常简单**
+**本库默认支持的服务商列表**
+- Coding.net
 
 ### 命名空间
 ```
 use hyperqing\oauth\厂商名;
 ```
 
-### Coding.net
+### 书写位置
+
+开通 OAuth 服务时，会填写一个回调地址，例如`localhost/oauth/callback`。
+- 获取 access_token 部分（后文快速开始所示）在该回调地址的逻辑代码中书写。
+- 已经存在 access_token 的，在任何位置书写均可。
+
+### 使用 Coding.net
 
 **快速开始**
 ```php
 use hyperqing\oauth\Coding;
+
 // 实例化OAuth对象
 $coding = new Coding('应用id', '应用密钥');
-// 注册用户自定义的保存方法
-$coding->onSaveAccessToken(function ($json) {
+
+// 注册用户自定义的保存access_token方法（可选的）
+$coding->onSaveAccessToken(function (string $json) {
+    // $json即含有 access_token,refresh_token,expires_in 的json字符串
+    // 存入MySQL或Redis等DB操作
 });
-// 注册读取方法
+// 注册用户自定义的读取access_token方法（可选的）
 $coding->onLoadAccessToken(function (): array {
     return [];
 });
+
+// 获取授权码后获取用户信息，如果设置了自定义保存方法，授权码将自动保存
 $data = $coding->getAccessToken()->getCurrentUser();
+// 你的业务逻辑
+// ...
 ```
+对于已经绑定第三方登录的用户，如果你希望直接通过第三方用户id+access_token获取用户数据，本库提供了方便的用法，如下所示。
+```php
+// 使用静态方法快速获得该用户的实例。
+$coding = new Coding('应用id', '应用密钥');
+
+// 设置当前操作的用户，随后可接API操作。
+$data = $coding->user('三方用户id','access_token')->getCurrentUser();
+// 或着这样，如果已经注册了读取access_token方法则可以省略
+$data = $coding->user('三方用户id')->getCurrentUser();
+```
+就是这么简单！
+
+#### API
+
+>参照 Coding.net 官方文档。
+>本库不会修改请求参数和返回值用法，多个请求值用数组传递，最终以数组方式返回。
+
+**用户信息**
+```php
+$coding->getAccessToken()
+```
+
+### 使用 GitHub
+
+
 
 
 
