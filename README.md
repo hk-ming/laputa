@@ -137,36 +137,39 @@ use hyperqing\oauth\厂商名;
 ### 使用 Coding.net
 
 **快速开始**
+
+考虑到用于开源项目或不适宜在git中流通应用密钥等需求，请添加以下环境变量，即可自动识别。
+```
+CODING_CLIENT_ID=你的应用id
+CODING_CLIENT_SECRET=你的应用密钥
+```
+PHP代码
 ```php
 use hyperqing\oauth\Coding;
 
 // 实例化OAuth对象
-$coding = new Coding('应用id', '应用密钥');
+$coding = new Coding();
 
-// 注册用户自定义的保存access_token方法（可选的）
-$coding->onSaveAccessToken(function (string $json) {
-    // $json即含有 access_token,refresh_token,expires_in 的json字符串
-    // 存入MySQL或Redis等DB操作
-});
-// 注册用户自定义的读取access_token方法（可选的）
-$coding->onLoadAccessToken(function (): array {
-    return [];
-});
+// 获取access_token数组，包括access_token,refresh_token,expires_in
+$access_token=$coding->getAccessToken();
 
-// 获取授权码后获取用户信息，如果设置了自定义保存方法，授权码将自动保存
-$data = $coding->getAccessToken()->getCurrentUser();
+// 获取Coding第三方用户信息
+$data = $coding->getCurrentUser();
+
 // 你的业务逻辑
 // ...
 ```
-对于已经绑定第三方登录的用户，如果你希望直接通过第三方用户id+access_token获取用户数据，本库提供了方便的用法，如下所示。
+如果你已经存储了上面得到的access_token数组，那么可以直接赋值给$coding对象，跳过授权步骤。
 ```php
-// 使用静态方法快速获得该用户的实例。
-$coding = new Coding('应用id', '应用密钥');
-
-// 设置当前操作的用户，随后可接API操作。
-$data = $coding->user('三方用户id','access_token')->getCurrentUser();
-// 或着这样，如果已经注册了读取access_token方法则可以省略
-$data = $coding->user('三方用户id')->getCurrentUser();
+$coding = new Coding();
+// 设置access_token
+$coding->setAccessToken([
+    'access_token'=>,
+    'refresh_token'=>'',
+    'expire_in'=>123
+]);
+// 获取Coding第三方用户信息
+$data = $coding->getCurrentUser();
 ```
 就是这么简单！
 
