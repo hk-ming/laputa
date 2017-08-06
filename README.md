@@ -151,7 +151,7 @@ use hyperqing\oauth\Coding;
 $coding = new Coding();
 
 // 获取access_token数组，包括access_token,refresh_token,expires_in
-$access_token=$coding->getAccessToken();
+$access_token = $coding->getAccessToken();
 
 // 获取Coding第三方用户信息
 $data = $coding->getCurrentUser();
@@ -162,12 +162,14 @@ $data = $coding->getCurrentUser();
 如果你已经存储了上面得到的access_token数组，那么可以直接赋值给$coding对象，跳过授权步骤。
 ```php
 $coding = new Coding();
+
 // 设置access_token
 $coding->setAccessToken([
     'access_token'=>,
     'refresh_token'=>'',
     'expire_in'=>123
 ]);
+
 // 获取Coding第三方用户信息
 $data = $coding->getCurrentUser();
 ```
