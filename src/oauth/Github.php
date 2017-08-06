@@ -70,6 +70,7 @@ class Github extends Oauth
                 'code' => $code
             ]
         ]);
+        var_dump((string)$response->getBody(),true);
         $this->accessToken = json_decode((string)$response->getBody(), true);
         return $this->accessToken;
     }
