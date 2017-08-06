@@ -46,4 +46,30 @@ class Github extends Oauth
         ]);
         return json_decode((string)$response->getBody(), true);
     }
+
+    /**
+     * 获取授权码
+     *
+     * 如果未有access_token将在线获取。已经存在的则直接返回。
+     * @return array 数组，包括:access_token,refresh_token,expires_in
+     */
+    public function getAccessToken()
+    {
+        if (!empty($this->accessToken)) {
+            return $this->accessToken;
+        }
+        // 取得code和scope
+        $code = $_GET['code'];
+//        $scope = $_GET['scope'];
+        // 取得授权码
+        $response = $this->client->request('POST', $this->config['access_token_uri'], [
+            'form_params' => [
+                'client_id' => $this->config['client_id'],
+                'client_secret' => $this->config['client_secret'],
+                'code' => $code
+            ]
+        ]);
+        $this->accessToken = json_decode((string)$response->getBody(), true);
+        return $this->accessToken;
+    }
 }

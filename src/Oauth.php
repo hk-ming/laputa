@@ -69,7 +69,7 @@ class Oauth
         $code = $_GET['code'];
 //        $scope = $_GET['scope'];
         // 取得授权码
-        $response = $this->client->request('POST', $this->config['access_token_uri'], [
+        $response = $this->client->request('GET', $this->config['access_token_uri'], [
             'query' => [
                 'client_id' => $this->config['client_id'],
                 'client_secret' => $this->config['client_secret'],
