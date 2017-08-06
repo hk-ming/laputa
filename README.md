@@ -159,7 +159,7 @@ $data = $coding->getCurrentUser();
 // 你的业务逻辑
 // ...
 ```
-如果你已经存储了上面得到的access_token数组，那么可以直接赋值给$coding对象，跳过授权步骤。
+如果你已经存储了上面得到的access_token数组，那么可以赋值给$coding对象，直接调用第三方API。
 ```php
 $coding = new Coding();
 
