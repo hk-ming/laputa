@@ -60,6 +60,7 @@ class Github extends Oauth
         }
         // 取得code和scope
         $code = $_GET['code'];
+        var_dump($code);
 //        $scope = $_GET['scope'];
         // 取得授权码
         $response = $this->client->request('POST', $this->config['access_token_uri'], [
