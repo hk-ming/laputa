@@ -50,7 +50,7 @@ class Oauth
         $this->client = new Client([
             'base_uri' => $this->config['base_uri'],
             'timeout' => 10.0,
-            'verify' => __DIR__ . '/cacert.pem'
+            'verify' => __DIR__ . '/oauth/cacert.pem'
         ]);
     }
 
