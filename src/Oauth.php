@@ -58,16 +58,15 @@ class Oauth
      * 获取授权码
      *
      * 如果未有access_token将在线获取。已经存在的则直接返回。
-     * @return array 数组，包括:access_token,refresh_token,expires_in
+     * @return array
      */
     public function getAccessToken()
     {
         if (!empty($this->accessToken)) {
             return $this->accessToken;
         }
-        // 取得code和scope
+        // 取得code
         $code = $_GET['code'];
-//        $scope = $_GET['scope'];
         // 取得授权码
         $response = $this->client->request('GET', $this->config['access_token_uri'], [
             'query' => [
