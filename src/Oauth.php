@@ -31,18 +31,6 @@ class Oauth
     protected $accessToken = [];
 
     /**
-     * 自定义保存AccessToken的方法
-     * @var callable
-     */
-    protected $saveAccessToken;
-
-    /**
-     * 自定义读取AccessToken的方法
-     * @var callable
-     */
-    protected $loadAccessToken;
-
-    /**
      * HTTP客户端
      * @var \GuzzleHttp\Client
      */
@@ -57,7 +45,7 @@ class Oauth
     public function __construct()
     {
         if ($this->config['base_uri'] == '') {
-            throw new \Exception('Oauth: 未设置base_uri');
+            throw new \Exception('OAuth: 未设置base_uri');
         }
         $this->client = new Client([
             'base_uri' => $this->config['base_uri'],
@@ -68,7 +56,7 @@ class Oauth
 
     /**
      * 获取授权码
-     * @return $this
+     * @return array 数组，包括:access_token,refresh_token,expires_in
      */
     public function getAccessToken()
     {
@@ -84,24 +72,7 @@ class Oauth
                 'code' => $code
             ]
         ]);
-        // 执行自定义保存授权码操作
-        call_user_func($this->saveAccessToken, (string)$response->getBody());
-        // 保存授权码留待链式调用中使用
         $this->accessToken = json_decode((string)$response->getBody(), true);
-        return $this;
-    }
-
-    /**
-     * 自定义保存AccessToken的操作
-     * @param callable $callback
-     */
-    public function onSaveAccessToken(callable $callback)
-    {
-        $this->saveAccessToken = $callback;
-    }
-
-    public function onLoadAccessToken(callable $callback)
-    {
-        $this->loadAccessToken = $callback;
+        return $this->accessToken;
     }
 }
