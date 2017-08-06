@@ -21,7 +21,7 @@ class Github extends Oauth
         if (!$client_id = getenv('GITHUB_CLIENT_ID')) {
             throw new \Exception('OAuth: 缺少环境变量 GITHUB_CLIENT_ID');
         }
-        if (!$client_secret = getenv('GITHUB_CLIENT_SECRET')){
+        if (!$client_secret = getenv('GITHUB_CLIENT_SECRET')) {
             throw new \Exception('OAuth: 缺少环境变量 GITHUB_CLIENT_SECRET');
         }
         $this->config = [
@@ -60,10 +60,12 @@ class Github extends Oauth
         }
         // 取得code和scope
         $code = $_GET['code'];
-        var_dump($code);
 //        $scope = $_GET['scope'];
         // 取得授权码
         $response = $this->client->request('POST', $this->config['access_token_uri'], [
+            'headers' => [
+                'Accept' => 'application/json'
+            ],
             'form_params' => [
                 'client_id' => $this->config['client_id'],
                 'client_secret' => $this->config['client_secret'],
