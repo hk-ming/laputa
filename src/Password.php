@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace hyperqing;
 
@@ -20,7 +21,7 @@ class Password
      * @param string $password
      * @return string 密文60位
      */
-    public static function crypt(string $password)
+    public static function crypt(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
@@ -32,7 +33,7 @@ class Password
      * @param string $hash 正确密码的密文
      * @return bool 正确返回true，否则返回false
      */
-    public static function verify(string $password, string $hash)
+    public static function verify(string $password, string $hash): bool
     {
         return password_verify($password, $hash);
     }
