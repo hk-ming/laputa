@@ -2,7 +2,7 @@
     <testsuites>
         <testsuite name="laputa">
             <file>tests/PasswordTest.php</file>
-            <file>tests/ArrayTest.php</file>
+            <file>tests/BaseTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>
