@@ -146,8 +146,6 @@ Base::$dic[35]; // =>Z
 
 加密后的密文固定长度60位。
 例：`$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFhc3ha904k/3o58u`
-
-### 用法
 ```
 use hyperqing\Password;
 
