@@ -34,7 +34,47 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 ## 单元测试
 
+### 在Windows中安装PHPUnit
 
+1. 为 PHP 的二进制可执行文件建立一个目录，例如 C:\bin
+
+2. 将 ;C:\bin 附加到 PATH 环境变量中（相关帮助）
+
+3. 下载 https://phar.phpunit.de/phpunit.phar 并将文件保存到 C:\bin\phpunit.phar
+
+4.打开命令行（例如，按 Windows+R » 输入 cmd » ENTER)
+
+5.建立外包覆批处理脚本（最后得到 C:\bin\phpunit.cmd）：
+```
+C:\Users\username> cd C:\bin
+C:\bin> echo @php "%~dp0phpunit.phar" %* > phpunit.cmd
+C:\bin> exit
+```
+6. 新开一个命令行窗口，确认一下可以在任意路径下执行 PHPUnit：
+```
+C:\Users\username> phpunit --version
+PHPUnit x.y.z by Sebastian Bergmann and contributors.
+```
+
+### Composer提供代码提示
+```
+composer require --dev phpunit/phpunit
+```
+
+## 运行测试
+
+要运行全部测试很简单，在项目目录中执行命令即可
+```
+phpunit --bootstrap vendor/autoload.php tests
+```
+运行单个测试类
+```
+phpunit --bootstrap src/autoload.php tests/PasswordTest
+```
+直接按phpunit.xml配置运行测试
+```
+phpunit
+```
 
 ## 基础库
 
