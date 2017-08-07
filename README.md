@@ -40,9 +40,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 2. 下载 https://phar.phpunit.de/phpunit.phar 并将文件保存到`PHP目录`。
 
-3.打开命令行（例如，按 Windows+R » 输入 cmd » ENTER)
+3. 打开命令行（例如，按 Windows+R » 输入 cmd » ENTER)
 
-4.建立批处理脚本（最后得到 `PHP目录\phpunit.cmd`）：
+4. 建立批处理脚本（最后得到 `PHP目录\phpunit.cmd`）：
 ```
 C:\> cd PHP目录
 C:\PHP目录> echo @php "%~dp0phpunit.phar" %* > phpunit.cmd
