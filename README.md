@@ -70,6 +70,7 @@ phpunit
 这将会直接按 phpunit.xml 配置运行测试。
 
 **其他**
+
 忽略phpunit.xml配置直接运行，
 ```
 phpunit --bootstrap vendor/autoload.php tests
