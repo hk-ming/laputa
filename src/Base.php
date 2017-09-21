@@ -53,7 +53,7 @@ class Base
      * @param int $code HTTP状态码
      * @throws \Exception
      */
-    public static function response(string $info, int $status = 1, $data = [], $code = 200)
+    public static function response(string $info, int $status = 1,array $data = [],int $code = 200)
     {
         if (!class_exists('\\think\\Response')) {
             throw new \Exception('This method is only used in ThinkPHP5.x');
