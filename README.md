@@ -224,7 +224,6 @@ $coding->getAccessToken()
 
 ### 使用 GitHub
 
-
 ## Lincense
 
 本项目遵循Apache2开源协议发布，并提供免费使用。
