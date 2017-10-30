@@ -2,7 +2,7 @@
   "name": "hyperqing/laputa",
   "description": "A PHP web application basic libary.",
   "type": "library",
-  "minimum-stability": "alpha",
+  "minimum-stability": "stable",
   "license": "Apache 2.0",
   "authors": [
     {
@@ -20,5 +20,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^6.3"
+  },
+  "archive": {
+    "exclude": [".git"]
   }
 }
