@@ -214,8 +214,8 @@ $data = $coding->getCurrentUser();
 
 #### API
 
->参照 Coding.net 官方文档。
->本库不会修改请求参数和返回值用法，多个请求值用数组传递，最终以数组方式返回。
+> 参照 Coding.net 官方文档。
+> 本库不会修改请求参数和返回值用法，多个请求值用数组传递，最终以数组方式返回。
 
 **用户信息**
 ```php
@@ -223,9 +223,6 @@ $coding->getAccessToken()
 ```
 
 ### 使用 GitHub
-
-
-
 
 
 ## Lincense
