@@ -23,54 +23,6 @@ composer require hyperqing/laputa --prefer-dist
 require_once __DIR__ . '/vendor/autoload.php';
 ```
 
-## 单元测试
-
-### 在Windows中安装PHPUnit
-
-1. 将 php.exe 所在目录（以下称`PHP目录`）添加到 PATH 环境变量中。
-
-2. 下载 https://phar.phpunit.de/phpunit.phar 并将文件保存到`PHP目录`。
-
-3. 打开命令行（例如，按 Windows+R » 输入 cmd » ENTER)
-
-4. 建立批处理脚本（最后得到 `PHP目录\phpunit.cmd`）：
-```
-C:\> cd PHP目录
-C:\PHP目录> echo @php "%~dp0phpunit.phar" %* > phpunit.cmd
-C:\PHP目录> exit
-```
-5. 新开一个命令行窗口，确认一下可以在任意路径下执行 PHPUnit：
-```
-C:\> phpunit --version
-PHPUnit 6.3.0 by Sebastian Bergmann and contributors.
-```
-
-### Composer提供代码提示
-
-如果希望在IDE中得到更多代码提示，可以引入phpunit源码。
-```
-composer require --dev phpunit/phpunit
-```
-
-### 运行测试
-
-要运行全部测试很简单，在项目目录中执行以下命令即可。
-```
-phpunit
-```
-这将会直接按 phpunit.xml 配置运行测试。
-
-**其他**
-
-忽略phpunit.xml配置直接运行，
-```
-phpunit --bootstrap vendor/autoload.php tests
-```
-运行单个测试用例
-```
-phpunit --bootstrap src/autoload.php tests/PasswordTest
-```
-
 ## 基础库
 
 本库包含以下功能
@@ -155,23 +107,45 @@ var_dump(Password::verify('123', '$2y$10$9RTa6zmUkkYTVTHDkSNcU.4m8WJl/TA4eeSplFh
 提供 OAuth 2.0 第三方登录功能，不依赖MVC框架，可以在ThinkPHP5、Laravel等框架中快速使用。
 使用本库进行OAuth操作非常简单，只需关注几个必要的位置即可完成。
 
-本库封装了主流服务商获取access_token和调用厂商API的功能。不仅如此，要添加其他厂商也是非常简单的。
+本库封装了主流服务商开放API的功能。不仅如此，要添加其他厂商也是非常简单的。
 
 **本库默认支持的服务商列表**
-- Coding.net
+
+- Weixin 微信公众号
+- Coding 扣钉Coding.net
+- Github 你懂的
 
 ### 命名空间
 ```
-use hyperqing\oauth\厂商名;
+use hyperqing\oauthlib\厂商名;
 ```
 
-### 书写位置
-
-开通 OAuth 服务时，会填写一个回调地址，例如`localhost/oauth/callback`。
-- 获取 access_token 部分（后文快速开始所示）在该回调地址的逻辑代码中书写。
-- 已经存在 access_token 的，在任何位置书写均可。
-
 ### 使用微信
+
+**快速开始**
+
+1. 配置AppId、AppSecret、Token(用于微信接口验证)。这个代码可以书写在控制器的构造函数，或框架生命周期中，适合处理初始化配置的地方。
+```
+OauthConfig::setAppId(OauthConfig::WEIXIN, '你的公众号AppId');
+OauthConfig::setAppSecret(OauthConfig::WEIXIN, '你的公众号AppSecret');
+OauthConfig::setToken(OauthConfig::WEIXIN, '你自定义的Token');
+```
+2. 微信接口验证。只需在微信接口测试平台设置好URL和Token，在第一步中设置你自定义的Token，简单两句即可完成接口验证。
+```
+public function weixinVerify(){
+    $weixin = new Weixin();
+    return $weixin->weixinVerify(); // 这里将返回微信传入的echostr或“请求错误”
+}
+```
+3. 第三方登录回调获取accessToken，获取用户基本信息。
+```
+public function callback(){
+    $weixin = new Weixin();
+    $weixin->getAccessToken(); // 返回包含accessToken等信息的数组。
+    $arr = $weixin->getUserinfo(); // 返回包含openid、用户名称等信息的数组
+    // ...你的业务逻辑
+}
+```
 
 ### 使用 Coding.net
 
@@ -225,6 +199,54 @@ $coding->getAccessToken()
 ```
 
 ### 使用 GitHub
+
+## 单元测试
+
+### 在Windows中安装PHPUnit
+
+1. 将 php.exe 所在目录（以下称`PHP目录`）添加到 PATH 环境变量中。
+
+2. 下载 https://phar.phpunit.de/phpunit.phar 并将文件保存到`PHP目录`。
+
+3. 打开命令行（例如，按 Windows+R » 输入 cmd » ENTER)
+
+4. 建立批处理脚本（最后得到 `PHP目录\phpunit.cmd`）：
+```
+C:\> cd PHP目录
+C:\PHP目录> echo @php "%~dp0phpunit.phar" %* > phpunit.cmd
+C:\PHP目录> exit
+```
+5. 新开一个命令行窗口，确认一下可以在任意路径下执行 PHPUnit：
+```
+C:\> phpunit --version
+PHPUnit 6.3.0 by Sebastian Bergmann and contributors.
+```
+
+### Composer提供代码提示
+
+如果希望在IDE中得到更多代码提示，可以引入phpunit源码。
+```
+composer require --dev phpunit/phpunit
+```
+
+### 运行测试
+
+要运行全部测试很简单，在项目目录中执行以下命令即可。
+```
+phpunit
+```
+这将会直接按 phpunit.xml 配置运行测试。
+
+**其他**
+
+忽略phpunit.xml配置直接运行，
+```
+phpunit --bootstrap vendor/autoload.php tests
+```
+运行单个测试用例
+```
+phpunit --bootstrap src/autoload.php tests/PasswordTest
+```
 
 ## Lincense
 
