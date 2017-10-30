@@ -2,7 +2,10 @@
 
 namespace hyperqing;
 
-
+/**
+ * 基础功能库
+ * @package hyperqing
+ */
 class Base
 {
     /**

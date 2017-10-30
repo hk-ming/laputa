@@ -113,7 +113,7 @@ class OauthConfig
      * @return mixed
      * @throws \Exception
      */
-    public static function getAToken(string $providers)
+    public static function getToken(string $providers)
     {
         if (isset(self::$config[$providers]) && isset(self::$config[$providers]['token'])) {
             return self::$config[$providers]['token'];
