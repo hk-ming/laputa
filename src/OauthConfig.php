@@ -121,8 +121,3 @@ class OauthConfig
         throw new \Exception('OAuth:没有配置 ' . $providers . ' 的 token。');
     }
 }
-
-OauthConfig::setAppSecret(OauthConfig::WEIXIN, '456');
-OauthConfig::setAppId(OauthConfig::WEIXIN, '123');
-echo OauthConfig::getAppId(OauthConfig::WEIXIN);
-echo OauthConfig::getAppSecret(OauthConfig::WEIXIN);

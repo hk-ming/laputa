@@ -24,8 +24,7 @@ class Oauth
      * @var array
      */
     protected $config = [
-        'base_uri' => '', // 服务商域名
-        'access_token_uri' => '' // 获取授权码的URI
+        'base_uri' => '' // 服务商域名
     ];
 
     /**
@@ -63,7 +62,7 @@ class Oauth
         $this->client = new Client([
             'base_uri' => $this->config['base_uri'],
             'timeout' => 10.0,
-            'verify' => __DIR__ . '/oauth/cacert.pem'
+            'verify' => __DIR__ . '/oauthlib/cacert.pem'
         ]);
     }
 }

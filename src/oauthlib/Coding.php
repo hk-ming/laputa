@@ -1,6 +1,6 @@
 <?php
 
-namespace hyperqing\oauth;
+namespace hyperqing\oauthlib;
 
 use hyperqing\Oauth;
 use hyperqing\OauthInterface;
