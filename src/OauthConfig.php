@@ -22,7 +22,7 @@ class OauthConfig
     /**
      * OAuth配置数组
      * @var array
-     * @example ["weixin"=>['AppId'=>'123456','AppSecret'=>'456789']]
+     * @example ["weixin"=>['AppId'=>'123456','AppSecret'=>'456789','token'=>'123456789']]
      */
     private static $config = [];
 
@@ -65,6 +65,21 @@ class OauthConfig
     }
 
     /**
+     * 设置指定厂商的token
+     * @param string $providers 服务提供商，输入OauthConfig::自动提示可使用的常量
+     * @param string $param token
+     */
+    public static function setToken(string $providers, string $param)
+    {
+        if (!isset(self::$config[$providers])) {
+            self::$config[$providers] = [];
+        }
+        if (!isset(self::$config[$providers]['token'])) {
+            self::$config[$providers]['token'] = $param;
+        }
+    }
+
+    /**
      * 获取指定厂商的AppId
      * @param string $providers 服务提供商，输入OauthConfig::自动提示可使用的常量
      * @return mixed
@@ -90,6 +105,20 @@ class OauthConfig
             return self::$config[$providers]['AppSecret'];
         }
         throw new \Exception('OAuth:没有配置 ' . $providers . ' 的 AppSecret。');
+    }
+
+    /**
+     * token
+     * @param string $providers 服务提供商，输入OauthConfig::自动提示可使用的常量
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getAToken(string $providers)
+    {
+        if (isset(self::$config[$providers]) && isset(self::$config[$providers]['token'])) {
+            return self::$config[$providers]['token'];
+        }
+        throw new \Exception('OAuth:没有配置 ' . $providers . ' 的 token。');
     }
 }
 
