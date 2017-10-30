@@ -171,6 +171,8 @@ use hyperqing\oauth\厂商名;
 - 获取 access_token 部分（后文快速开始所示）在该回调地址的逻辑代码中书写。
 - 已经存在 access_token 的，在任何位置书写均可。
 
+### 使用微信
+
 ### 使用 Coding.net
 
 **快速开始**
