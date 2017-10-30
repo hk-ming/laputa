@@ -3,13 +3,14 @@
 namespace hyperqing\oauth;
 
 use hyperqing\Oauth;
+use hyperqing\OauthInterface;
 
 /**
  * 接入coding厂商
  * @package app\index\controller
  * @author HyperQing<469379004@qq.com>
  */
-class Coding extends Oauth
+class Coding extends Oauth implements OauthInterface
 {
     /**
      * 构造函数
@@ -36,6 +37,24 @@ class Coding extends Oauth
             'access_token_uri' => '/api/oauth/access_token' // 获取授权码的URI
         ];
         parent::__construct();
+    }
+
+    public function getAccessToken()
+    {
+        if (!empty($this->accessToken)) {
+            return $this->accessToken;
+        }
+        // 取得授权码
+        $response = $this->client->request('GET', $this->config['access_token_uri'], [
+            'query' => [
+                'client_id' => $this->config['client_id'],
+                'client_secret' => $this->config['client_secret'],
+                'grant_type' => 'authorization_code',
+                'code' => $_GET['code']
+            ]
+        ]);
+        $this->accessToken = json_decode((string)$response->getBody(), true);
+        return $this->accessToken;
     }
 
     /**
