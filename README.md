@@ -2,9 +2,9 @@
 
 by HyperQing 20170703
 
->“天空之城。”
+> “天空之城。”
 
->PHP 网络应用基础库 (A PHP web application basic libary.)
+> PHP 网络应用基础库 (A PHP web application basic libary.)
 
 [TOC]
 
@@ -14,20 +14,12 @@ PHP7 or latest
 
 ## 安装方法
 
-1. `composer.json`添加本仓库(暂未发布到composer仓库，使用git代替，未来会取消这一步)
 ```
-"repositories": [
-    {
-       "type": "vcs",
-       "url": "https://git.coding.net/clyoko/laputa.git"
-     }
- ]
+1. 通过Composer安装本库
 ```
-2. 引入依赖(尚未发布正式版，需带上版本`dev-master`)
+composer require hyperqing/laputa
 ```
-composer require hyperqing/laputa:dev-master
-```
-3. 引入`autoload.php`文件
+2. 引入`autoload.php`文件
 ```
 require_once __DIR__ . '/vendor/autoload.php';
 ```
