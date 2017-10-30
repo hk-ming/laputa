@@ -16,7 +16,7 @@ PHP7 or latest
 
 1. 通过Composer安装本库
 ```
-composer require hyperqing/laputa
+composer require hyperqing/laputa --prefer-dist
 ```
 2. 引入`autoload.php`文件
 ```
