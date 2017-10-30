@@ -58,8 +58,6 @@ class Github extends Oauth
         if (!empty($this->accessToken)) {
             return $this->accessToken;
         }
-        // 取得code
-        $code = $_GET['code'];
         // 取得授权码
         $response = $this->client->request('POST', $this->config['access_token_uri'], [
             'headers' => [
@@ -68,7 +66,7 @@ class Github extends Oauth
             'form_params' => [
                 'client_id' => $this->config['client_id'],
                 'client_secret' => $this->config['client_secret'],
-                'code' => $code
+                'code' => $_GET['code']
             ]
         ]);
         $this->accessToken = json_decode((string)$response->getBody(), true);
