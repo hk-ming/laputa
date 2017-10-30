@@ -108,7 +108,7 @@ class OauthConfig
     }
 
     /**
-     * token
+     * 获取指定厂商的token
      * @param string $providers 服务提供商，输入OauthConfig::自动提示可使用的常量
      * @return mixed
      * @throws \Exception
