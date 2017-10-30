@@ -14,7 +14,6 @@ PHP7 or latest
 
 ## 安装方法
 
-```
 1. 通过Composer安装本库
 ```
 composer require hyperqing/laputa
