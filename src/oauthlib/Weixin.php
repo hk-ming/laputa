@@ -422,4 +422,65 @@ class Weixin extends Oauth implements OauthInterface
         $arr = json_decode((string)$response->getBody(), true);
         return $arr;
     }
+
+    /**
+     * 发送模板消息
+     * <p>
+     * 要求传入使用json表示的菜单数据（具体结构见文档）<br>
+     * 成功返回true,失败则抛出异常，由外部自行处理。
+     * </p>
+     * 请求类型：<b>POST</b>
+     * @param string $json JSON数据（具体结构见文档）
+     * @return bool
+     * @throws \Exception
+     * @link https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277
+     */
+    public function template_send(string $json): bool
+    {
+        $response = $this->client->request('POST', '/cgi-bin/message/template/send', [
+            'query' => [
+                'access_token' => $this->getOfficialAccountsToken()
+            ],
+            'body' => $json
+        ]);
+        $arr = json_decode((string)$response->getBody(), true);
+        if ($arr['errcode'] === 0) {
+            return true;
+        }
+        throw new \Exception($arr['errmsg'], $arr['errcode']);
+    }
+
+    /**
+     * 获取设置的行业信息
+     * @return mixed
+     * @link https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277
+     */
+    public function template_getidlist()
+    {
+        $response = $this->client->request('GET', '/cgi-bin/template/get_industry', [
+            'query' => [
+                'access_token' => $this->getOfficialAccountsToken()
+            ],
+            'body' => ''
+        ]);
+        $arr = json_decode((string)$response->getBody(), true);
+        return $arr;
+    }
+
+    /**
+     * 获取模板列表
+     * @return mixed
+     * @link https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277
+     */
+    public function template_getallprivatetemplate()
+    {
+        $response = $this->client->request('GET', '/cgi-bin/template/get_all_private_template', [
+            'query' => [
+                'access_token' => $this->getOfficialAccountsToken()
+            ],
+            'body' => ''
+        ]);
+        $arr = json_decode((string)$response->getBody(), true);
+        return $arr;
+    }
 }
